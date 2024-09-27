@@ -65,7 +65,7 @@ content:
             icon: fab fa-github
             url: github.com/klowdo/resume
           - title: Generated pdf 
-            icon: fab fa-file-pdf
+            icon: fa fa-file-pdf
             url: https://github.com/klowdo/Resume/releases/download/v0.0.1/resume.pdf
         quote: >
           Fun project since i hate word documents and always loose canvas logins 
