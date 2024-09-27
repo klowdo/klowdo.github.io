@@ -69,6 +69,69 @@ content:
           #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
         quote: >
           Fun project since i hate word documents and always loose canvas logins 
+  # - name: Freelancer
+  #   place: Chargenode EU / Flixen AB
+  #   from: 2023-02-23
+  #   items:
+  #     - The client is an EV charger provider that does all
+  #       development in-house including hardware customer
+  #       portal and down to charger protocols. My focus is creating
+  #       a high scalable system in azure for connecting 100k +
+  #       chargers leveraging the actor model.
+  #     - Also, while maintaining and supporting mainline
+  #       development current system written I dotnet.
+  # - name: Freelancer
+  #   place: Worldstream / Flixen AB
+  #   from: 2022-03-15
+  #   to: 2023-02-15
+  #   items:
+  #     - The first client was an Infrastructure provider based in
+  #       Netherlands (Same as evolve technology). This system is
+  #       an event-sourced system and traceability is key-focus and
+  #       written I go to gain performance.
+  #     - golang, evensourcing, docker
+  # - name: Senior developer
+  #   place: Evolve Technology/Afry
+  #   from: 2020-03-01
+  #   to: 2022-08-12
+  #   items:
+  #     - Software development in agile projects
+  #     - Identity and security management
+  #     - Productivity and tools improvement
+  #     - First client was a Swedish med-tech company that focuses on pro-active care of patient with live health monitoring. This system was written in C# and built into Microsoft azures cloud services.
+  #     - Second client was a Infrastructure provider based in Netherlands. This system was an event-sourced system where traceability was key-focus and written I go to gainperformance.
+  # - name: AZURE INTEGRATION
+  #   place: CXC (Deloite Australia)
+  #   from: 2019-05-27
+  #   to: 2020-02-15
+  #   items:
+  #     - Application development stream lead.
+  #     - Technical analysis and problem investigation in relation to software platforms at the Cloud Infrastructure layers.
+  #     - Platform and Infrastructure configuration for both the implementation of changes and resolution of problems as required
+  #     - Collaboration with other technology units at Deloitte, Customers and their 3rd party service providers.
+  #     - ITSM process execution including Incident and Problem Management utilizing applications such as VSTS and Jira.
+  #     - Analysis, tracking and monitoring of technical issues including regular reporting and escalation where required
+  #     - Platform and Infrastructure system monitoring utilizing a variety of modern tools including event and log managers
+  # - name: TECH LEAD
+  #   place: Collector Bank
+  #   from: 2016-01-04
+  #   to: 2019-01-04
+  #   items:
+  #     - Collaborative development of core bank system.
+  #     - Monitor and operating production cloud systems. ensuring an always up system.
+  #     - In charge of Cloud infrastructure and security maintenance and development.
+  #     - Building and maintaining CI/CD
+  #     - Analysing new technologies to investigate improvement of systems speed, reliability and security.
+  #     - Management utilizing applications such as Azure DevOps and Octopus deploy.
+  # - from: "2015-05-03"
+  #   to: "2016-06-04"
+  #   name: AZURE INTEGRATION
+  #   place: Collector Bank
+  #   items:
+  #     - Direct communication with the origination and analyzing new components to be manufactured or migrated.'
+  #     - Building, testing and deployment of service.
+  #     - Monitor, reporting and updating cloud services components
+  #     - Management utilizing applications such as Team city, Jira and Octopus deploy.
   - title: Experience # Title for the section
     layout: list # Type of content section (list/text)
     content:
