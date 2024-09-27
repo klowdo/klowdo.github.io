@@ -64,74 +64,45 @@ content:
           - title:  klowdo/resume
             icon: fab fa-github
             url: github.com/klowdo/resume
-          # - title:  Github page for project (eg. sproogen/modern-resume-theme)
-          #   icon: fab fa-github
-          #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
+          - title: Generated pdf 
+            icon: fab fa-file-pdf
+            url: https://github.com/klowdo/Resume/releases/download/v0.0.1/resume.pdf
         quote: >
           Fun project since i hate word documents and always loose canvas logins 
-  # - name: Freelancer
-  #   place: Chargenode EU / Flixen AB
-  #   from: 2023-02-23
-  #   items:
-  #     - The client is an EV charger provider that does all
-  #       development in-house including hardware customer
-  #       portal and down to charger protocols. My focus is creating
-  #       a high scalable system in azure for connecting 100k +
-  #       chargers leveraging the actor model.
-  #     - Also, while maintaining and supporting mainline
-  #       development current system written I dotnet.
-  # - name: Freelancer
-  #   place: Worldstream / Flixen AB
-  #   from: 2022-03-15
-  #   to: 2023-02-15
-  #   items:
-  #     - The first client was an Infrastructure provider based in
-  #       Netherlands (Same as evolve technology). This system is
-  #       an event-sourced system and traceability is key-focus and
-  #       written I go to gain performance.
-  #     - golang, evensourcing, docker
-  # - name: Senior developer
-  #   place: Evolve Technology/Afry
-  #   from: 2020-03-01
-  #   to: 2022-08-12
-  #   items:
-  #     - Software development in agile projects
-  #     - Identity and security management
-  #     - Productivity and tools improvement
-  #     - First client was a Swedish med-tech company that focuses on pro-active care of patient with live health monitoring. This system was written in C# and built into Microsoft azures cloud services.
-  #     - Second client was a Infrastructure provider based in Netherlands. This system was an event-sourced system where traceability was key-focus and written I go to gainperformance.
-  # - name: AZURE INTEGRATION
-  #   place: CXC (Deloite Australia)
-  #   from: 2019-05-27
-  #   to: 2020-02-15
-  #   items:
-  #     - Application development stream lead.
-  #     - Technical analysis and problem investigation in relation to software platforms at the Cloud Infrastructure layers.
-  #     - Platform and Infrastructure configuration for both the implementation of changes and resolution of problems as required
-  #     - Collaboration with other technology units at Deloitte, Customers and their 3rd party service providers.
-  #     - ITSM process execution including Incident and Problem Management utilizing applications such as VSTS and Jira.
-  #     - Analysis, tracking and monitoring of technical issues including regular reporting and escalation where required
-  #     - Platform and Infrastructure system monitoring utilizing a variety of modern tools including event and log managers
-  # - name: TECH LEAD
-  #   place: Collector Bank
-  #   from: 2016-01-04
-  #   to: 2019-01-04
-  #   items:
-  #     - Collaborative development of core bank system.
-  #     - Monitor and operating production cloud systems. ensuring an always up system.
-  #     - In charge of Cloud infrastructure and security maintenance and development.
-  #     - Building and maintaining CI/CD
-  #     - Analysing new technologies to investigate improvement of systems speed, reliability and security.
-  #     - Management utilizing applications such as Azure DevOps and Octopus deploy.
-  # - from: "2015-05-03"
-  #   to: "2016-06-04"
-  #   name: AZURE INTEGRATION
-  #   place: Collector Bank
-  #   items:
-  #     - Direct communication with the origination and analyzing new components to be manufactured or migrated.'
-  #     - Building, testing and deployment of service.
-  #     - Monitor, reporting and updating cloud services components
-  #     - Management utilizing applications such as Team city, Jira and Octopus deploy.
+
+      - layout: top-middle
+        title: My nixos-config
+        link: github.com/klowdo/nixos-config
+        # link_text: Project Website
+        additional_links:
+          - title:  klowdo/nixos-config
+            icon: fab fa-github
+            url: github.com/klowdo/nixos-config
+
+      - layout: top-middle
+        title: A salary calculator coding test
+        link: github.com/klowdo/nixos-config
+        additional_links:
+          - title:  klowdo/SalaryCalculator
+            icon: fab fa-github
+            url: github.com/klowdo/SalaryCalculator
+
+      - layout: top-middle
+        title: A payment system coding test
+        link: github.com/klowdo/nixos-config
+        additional_links:
+          - title:  klowdo/PaymentSystemCqrs
+            icon: fab fa-github
+            url: github.com/klowdo/PaymentSystemCqrs
+
+      - layout: top-middle
+        title: A toll calculator coding test
+        link: github.com/klowdo/nixos-config
+        additional_links:
+          - title:  klowdo/TollCalculator
+            icon: fab fa-github
+            url: github.com/klowdo/TollCalculator
+
   - title: Experience # Title for the section
     layout: list # Type of content section (list/text)
     content:
@@ -152,31 +123,100 @@ content:
           - Also, while maintaining and supporting mainline
             development current system written I dotnet.
 
+      - layout: left
+        title: Worldstream
+        link: https://www.worldstream.com/en
+        sub_title: Senior Developer / Freelancer
+        caption: March 2022 - February 2023
+        quote: >
+            Worldstream offers top-brand dedicated servers and network equipment at highly competitive prices. Check out our solutions for flexible IT deployment.
+        description: | # this will include new lines to allow paragraphs
+          - The first client was an Infrastructure provider based in
+            Netherlands (Same as evolve technology). This system is
+            an event-sourced system and traceability is key-focus and
+            written I go to gain performance.
+          - golang, evensourcing, docker
+
+      - layout: left
+        title: Evolve Technology/Afry
+
+        link: https://www.worldstream.com/en
+        sub_title: Senior Developer
+        caption: March 2020 - August 2022
+        # TODO: Break these out to project instead
+        description: | # this will include new lines to allow paragraphs
+          - Software development in agile projects
+          - Identity and security management
+          - Productivity and tools improvement
+          - First client was a Swedish med-tech company that focuses on pro-active care of patient with live health monitoring. This system was written in C# and built into Microsoft azures cloud services.
+          - Second client was a Infrastructure provider based in Netherlands. This system was an event-sourced system where traceability was key-focus and written I go to gainperformance.
+
+      - layout: left
+        title: CXC (Deloite Australia)
+        link: https://www.worldstream.com/en
+        sub_title: Senior Developer / Freelancer
+        caption: May 2019 - February 2020
+        description: | # this will include new lines to allow paragraphs
+          - Application development stream lead.
+          - Technical analysis and problem investigation in relation to software platforms at the Cloud Infrastructure layers.
+          - Platform and Infrastructure configuration for both the implementation of changes and resolution of problems as required
+          - Collaboration with other technology units at Deloitte, Customers and their 3rd party service providers.
+          - ITSM process execution including Incident and Problem Management utilizing applications such as VSTS and Jira.
+          - Analysis, tracking and monitoring of technical issues including regular reporting and escalation where required
+          - Platform and Infrastructure system monitoring utilizing a variety of modern tools including event and log managers
+
+      - layout: left
+        title: Collector Bank
+        link: https://www.collector.se
+        sub_title: Developer 
+        caption: July 2016 - January 2019
+        description: | # this will include new lines to allow paragraphs
+          - Collaborative development of core bank system.
+          - Monitor and operating production cloud systems. ensuring an always up system.
+          - In charge of Cloud infrastructure and security maintenance and development.
+          - Building and maintaining CI/CD
+          - Analysing new technologies to investigate improvement of systems speed, reliability and security.
+          - Management utilizing applications such as Azure DevOps and Octopus deploy.
+
+      - layout: left
+        title: Collector Bank
+        link: https://www.collector.se
+        sub_title: Developer Azure Integration 
+        caption: May 2015 - July 2016
+        description: | # this will include new lines to allow paragraphs
+          - Direct communication with the origination and analyzing new components to be manufactured or migrated.'
+          - Building, testing and deployment of service.
+          - Monitor, reporting and updating cloud services components
+          - Management utilizing applications such as Team city, Jira and Octopus deploy.
+
   - title: Education # Title for the section
     layout: list # Type of content section (list/text)
     content:
+
       - layout: left
-        title: Harvard University
-        caption: 2010 - 2013
-        sub_title: BSc Computer Science
+        title: Self tought
+        caption: 1995 - Present
+        sub_title: At all time and everywhere
         quote: >
-          Established in 1636, Harvard is the oldest higher education institution in the United States, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading university in not just the US but also the world.
+
+          Established in 1995, Self tought is the oldest education institution in the my knowledge, and is widely regarded in terms of its influence, reputation, and academic pedigree as a leading leading methods in not just me but also the world.
         description: | # this will include new lines to allow paragraphs
           During my time at Harvard I learnt most of my key skills that have I have taken through my career such as teamwork and working to tight deadlines. I thouroughly enjoyed my time as university and learnt a lot about a healthy work life balance.
 
-          I spent a lot of my free time as a committee member of the *Harvard Mountaineering Club* taking on roles such as *Trip Secretary* and *Vice-President*.
+      - layout: left
+        title: Borås University
+        caption: 2010 - 2013
+        sub_title: nformation systems
+        description: | # this will include new lines to allow paragraphs
+          I studied here for a year until i realised that i like coding and i pretty good of teaching myself insted of wasting time in the school
 
   - title: A Little More About Me
     layout: text
     content: | # this will include new lines to allow paragraphs
-      Alongside my interests in networks and software engineering some of my other interests and hobbies are:
-      - Rock climbing
-      - Gaming
-      - Knitting
-      - [Becoming a ninja](https://www.youtube.com/watch?v=vtg4o__aRMg)
-
-      Look at this cool image  
-      ![Trees](/modern-resume-theme/images/landscape-trees.jpg "Trees")
+      Alongside my interests in  software engineering some of my other interests and hobbies are:
+      - Ice hockey
+      - Motorbikes
+      - Home automation
 
 # Footer
 footer_show_references: true
