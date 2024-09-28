@@ -30,9 +30,9 @@ linkedin_username: felix-svensson
 
 # Additional icon links
 additional_links:
-- title: itsgoingto.be
-  icon: fas fa-globe
-  url: https://www.itsgoingto.be
+# - title: itsgoingto.be
+#   icon: fas fa-globe
+#   url: https://www.itsgoingto.be
 # - title: another link
 #   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&m=free)
 #   url: Link url (eg. https://google.com)
@@ -140,7 +140,7 @@ content:
       - layout: left
         title: Evolve Technology/Afry
 
-        link: https://www.worldstream.com/en
+        link: https://afry.com/ 
         sub_title: Senior Developer
         caption: March 2020 - August 2022
         # TODO: Break these out to project instead
@@ -152,8 +152,8 @@ content:
           - Second client was a Infrastructure provider based in Netherlands. This system was an event-sourced system where traceability was key-focus and written I go to gainperformance.
 
       - layout: left
-        title: CXC (Deloite Australia)
-        link: https://www.worldstream.com/en
+        title: CXC (Deloitte Australia)
+        link: https://www.deloitte.com/au/en.html
         sub_title: Senior Developer / Freelancer
         caption: May 2019 - February 2020
         description: | # this will include new lines to allow paragraphs
@@ -206,7 +206,7 @@ content:
       - layout: left
         title: Borås University
         caption: 2010 - 2013
-        sub_title: nformation systems
+        sub_title: Information systems
         description: | # this will include new lines to allow paragraphs
           I studied here for a year until i realised that i like coding and i pretty good of teaching myself insted of wasting time in the school
 
