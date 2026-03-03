@@ -1,9 +1,12 @@
-import { register, getRegistry } from './commands.svelte';
-import { ls, cat, cd, getCurrentDir } from './filesystem';
+import { register, getRegistry, getHistory } from './commands.svelte';
+import { ls, cat, cd, getCurrentDir, getTree } from './filesystem';
 import Devfetch from './Devfetch.svelte';
 import Fastfetch from './Fastfetch.svelte';
 import LsOutput from './LsOutput.svelte';
 import HelpOutput from './HelpOutput.svelte';
+import TreeOutput from './TreeOutput.svelte';
+import CowsayOutput from './CowsayOutput.svelte';
+import ContactOutput from './ContactOutput.svelte';
 
 register('devfetch', 'Display developer profile info', () => ({
 	type: 'component',
@@ -43,4 +46,79 @@ register('cd', 'Change directory', (args) => {
 register('pwd', 'Print working directory', () => ({
 	type: 'text',
 	content: getCurrentDir()
+}));
+
+register('whoami', 'Print current user', () => ({
+	type: 'text',
+	content: 'visitor'
+}));
+
+register('echo', 'Print arguments to output', (args) => ({
+	type: 'text',
+	content: args
+}));
+
+register('date', 'Print current date and time', () => ({
+	type: 'text',
+	content: new Date().toString()
+}));
+
+register('uname', 'Print system information', () => ({
+	type: 'text',
+	content: 'Linux flixen 6.12.74 #1 SMP NixOS 25.11 (Xantusia) x86_64 GNU/Linux'
+}));
+
+register('rm', 'Remove files', () => ({
+	type: 'text',
+	content: 'rm: permission denied. Nice try though.',
+	class: 'error'
+}));
+
+register('sudo', 'Execute as superuser', () => ({
+	type: 'text',
+	content: 'visitor is not in the sudoers file. This incident will be reported.',
+	class: 'error'
+}));
+
+register('history', 'Show command history', () => {
+	const entries = getHistory();
+	if (entries.length === 0) return { type: 'text', content: 'No history yet.' };
+	const numbered = entries.map((e, i) => `  ${i + 1}  ${e.command}`).join('\n');
+	return { type: 'text', content: numbered };
+});
+
+register('tree', 'Display directory tree', (args) => {
+	const result = getTree(args || undefined);
+	if (typeof result === 'string') return { type: 'text', content: result, class: 'error' };
+	const root = args || getCurrentDir();
+	return { type: 'component', component: TreeOutput, props: { tree: result, root } };
+});
+
+register('cowsay', 'Make a cow say something', (args) => ({
+	type: 'component',
+	component: CowsayOutput,
+	props: { message: args || 'moo' }
+}));
+
+const fortunes = [
+	'There are only two hard things in CS: cache invalidation, naming things, and off-by-one errors.',
+	"It works on my machine. Ship the machine.",
+	'// TODO: fix this later\n// - written 3 years ago',
+	'A QA engineer walks into a bar. Orders 1 beer. Orders 0 beers. Orders 99999999 beers. Orders -1 beers. Orders a lizard.',
+	'The best thing about a boolean is that even if you are wrong, you are only off by a bit.',
+	'Programming is like writing a book... except if you miss a single comma on page 126 the whole thing makes no sense.',
+	'"Mass assign vulnerability" is just a fancy way of saying I forgot to validate my inputs again.',
+	'There are 10 types of people in the world: those who understand binary, and those who don\'t.',
+	'Why do programmers prefer dark mode? Because light attracts bugs.',
+	'git commit -m "fixed it for real this time"'
+];
+
+register('fortune', 'Display a random dev fortune', () => ({
+	type: 'text',
+	content: fortunes[Math.floor(Math.random() * fortunes.length)]
+}));
+
+register('contact', 'Show contact information', () => ({
+	type: 'component',
+	component: ContactOutput
 }));

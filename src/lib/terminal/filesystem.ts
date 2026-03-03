@@ -160,6 +160,28 @@ export function getCurrentDir(): string {
 	return cwd;
 }
 
+export type TreeNode = { name: string; isDir: boolean; children?: TreeNode[] };
+
+export function getTree(path?: string): TreeNode[] | string {
+	const parts = normalizePath(path ?? cwd);
+	const node = parts.length === 0 ? filesystem : getNode(parts);
+
+	if (!node) return `tree: '${path}': No such file or directory`;
+	if (node.type === 'file') return `tree: '${path}': Not a directory`;
+
+	function walk(dir: DirNode): TreeNode[] {
+		return Object.entries(dir.children)
+			.sort(([a], [b]) => a.replace(/^\./, '').localeCompare(b.replace(/^\./, '')))
+			.map(([name, child]) => ({
+				name,
+				isDir: child.type === 'dir',
+				...(child.type === 'dir' ? { children: walk(child) } : {})
+			}));
+	}
+
+	return walk(node);
+}
+
 export function completePath(partial: string): string[] {
 	if (!partial) {
 		const node = getNode(normalizePath(cwd));
