@@ -84,7 +84,7 @@
 
 <div class="command-input">
 	<TerminalLine {path}>
-		<span class="text">{value}</span><Cursor />
+		<span class="text">{value}</span><Cursor />{#if !value}<span class="hint">type 'help' to get started</span>{/if}
 	</TerminalLine>
 	<input
 		bind:this={inputEl}
@@ -103,6 +103,11 @@
 
 	.text {
 		color: var(--ctp-text);
+	}
+
+	.hint {
+		color: var(--ctp-overlay0, #6c7086);
+		margin-left: 0.5ch;
 	}
 
 	.hidden-input {
