@@ -126,5 +126,6 @@ register('contact', 'Show contact information', () => ({
 
 register('java', 'Run Java application', () => ({
 	type: 'component',
-	component: JavaOutput
+	component: JavaOutput,
+	blocking: true
 }));

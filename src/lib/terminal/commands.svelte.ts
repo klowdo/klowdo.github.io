@@ -2,7 +2,7 @@ import type { Component } from 'svelte';
 import { getCurrentDir } from './filesystem';
 
 export type OutputBlock =
-	| { type: 'component'; component: Component; props?: Record<string, unknown> }
+	| { type: 'component'; component: Component; props?: Record<string, unknown>; blocking?: boolean }
 	| { type: 'text'; content: string; class?: string }
 	| { type: 'clear' }
 	| { type: 'empty' };
@@ -23,6 +23,7 @@ const registry: CommandDef[] = [];
 
 let history = $state<HistoryEntry[]>([]);
 let currentPath = $state('~');
+let busy = $state(false);
 
 export function getHistory(): HistoryEntry[] {
 	return history;
@@ -30,6 +31,14 @@ export function getHistory(): HistoryEntry[] {
 
 export function getCurrentPath(): string {
 	return currentPath;
+}
+
+export function getBusy(): boolean {
+	return busy;
+}
+
+export function setBusy(v: boolean) {
+	busy = v;
 }
 
 export function syncPath() {

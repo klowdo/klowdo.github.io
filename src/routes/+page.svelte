@@ -13,7 +13,9 @@
 		pushEntry,
 		clearHistory,
 		resolve,
-		commandNames
+		commandNames,
+		getBusy,
+		setBusy
 	} from '$lib/terminal/commands.svelte';
 
 	let typing = $state(true);
@@ -22,6 +24,7 @@
 
 	let history = $derived(getHistory());
 	let currentPath = $derived(getCurrentPath());
+	let busy = $derived(getBusy());
 
 	function handleTypingDone() {
 		typing = false;
@@ -38,6 +41,10 @@
 		if (output.type === 'clear') {
 			clearHistory();
 			return;
+		}
+
+		if (output.type === 'component' && output.blocking) {
+			setBusy(true);
 		}
 
 		pushEntry(trimmed, output);
@@ -70,7 +77,7 @@
 			<OutputBlockView block={entry.output} />
 		{/each}
 
-		{#if !typing}
+		{#if !typing && !busy}
 			<div class="input-line">
 				<CommandInput bind:this={inputRef} onsubmit={handleCommand} path={currentPath} commands={commandNames()} />
 			</div>

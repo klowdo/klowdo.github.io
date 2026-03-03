@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { setBusy } from './commands.svelte';
 
 	const frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 	const error = `Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
@@ -11,6 +12,10 @@
 
 	let frame = $state(0);
 	let done = $state(false);
+
+	$effect(() => {
+		if (done) setBusy(false);
+	});
 
 	onMount(() => {
 		const spin = setInterval(() => {
