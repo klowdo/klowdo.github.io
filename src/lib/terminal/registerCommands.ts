@@ -7,6 +7,7 @@ import HelpOutput from './HelpOutput.svelte';
 import TreeOutput from './TreeOutput.svelte';
 import CowsayOutput from './CowsayOutput.svelte';
 import ContactOutput from './ContactOutput.svelte';
+import JavaOutput from './JavaOutput.svelte';
 
 register('devfetch', 'Display developer profile info', () => ({
 	type: 'component',
@@ -121,4 +122,9 @@ register('fortune', 'Display a random dev fortune', () => ({
 register('contact', 'Show contact information', () => ({
 	type: 'component',
 	component: ContactOutput
+}));
+
+register('java', 'Run Java application', () => ({
+	type: 'component',
+	component: JavaOutput
 }));
