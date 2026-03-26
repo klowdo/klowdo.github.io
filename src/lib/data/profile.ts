@@ -1,3 +1,5 @@
+const startYear = 2015;
+
 export const profile = {
 	name: 'Felix Svensson',
 	title: 'Friendly developer',
@@ -10,7 +12,7 @@ export const profile = {
 		url: 'https://github.com/klowdo/Resume/releases/latest/download/resume.pdf'
 	},
 	languages: ['C#/.NET', 'Go', 'TypeScript'],
-	experience: '~9 years',
+	experience: `~${new Date().getFullYear() - startYear} years`,
 	interests: ['Event Sourcing', 'Clean Architecture', 'Pizza'],
 	image: '/images/Felix.jpeg',
 	projects: [
