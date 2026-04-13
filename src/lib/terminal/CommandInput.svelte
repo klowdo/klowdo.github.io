@@ -93,6 +93,7 @@
 		class="hidden-input"
 		spellcheck="false"
 		autocomplete="off"
+		aria-label="Terminal command input"
 	/>
 </div>
 

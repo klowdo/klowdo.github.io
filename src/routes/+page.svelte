@@ -85,8 +85,9 @@
 </header>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
-<div bind:this={scrollEl} class="scroll-container" onclick={handleClick}>
+<main bind:this={scrollEl} class="scroll-container" onclick={handleClick}>
 	<Terminal path={currentPath}>
 		{#if typing}
 			<TerminalLine>
@@ -105,7 +106,7 @@
 			</div>
 		{/if}
 	</Terminal>
-</div>
+</main>
 
 <style>
 	.scroll-container {
