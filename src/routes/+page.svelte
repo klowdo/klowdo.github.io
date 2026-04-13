@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import '$lib/terminal/registerCommands';
+	import { profile } from '$lib/data/profile';
 	import Terminal from '$lib/terminal/Terminal.svelte';
 	import TerminalLine from '$lib/terminal/TerminalLine.svelte';
 	import TypingAnimation from '$lib/terminal/TypingAnimation.svelte';
@@ -61,6 +62,27 @@
 		inputRef?.focus();
 	}
 </script>
+
+<header class="sr-only">
+	<h1>{profile.name} — {profile.title}</h1>
+	<p>
+		{profile.experience} of experience building software with {profile.languages.join(', ')}.
+		Interested in {profile.interests.join(', ')}.
+	</p>
+	<ul>
+		<li><a href="mailto:{profile.email}">{profile.email}</a></li>
+		<li><a rel="me" href={profile.github.url}>GitHub: {profile.github.label}</a></li>
+		<li><a rel="me" href={profile.linkedin.url}>LinkedIn: {profile.linkedin.label}</a></li>
+		<li><a href={profile.resume.url}>Résumé (PDF)</a></li>
+		<li><a href="https://flixen.se">flixen.se</a></li>
+	</ul>
+	<h2>Selected projects</h2>
+	<ul>
+		{#each profile.projects as project}
+			<li><a href={project.url}>{project.name}</a></li>
+		{/each}
+	</ul>
+</header>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
