@@ -14,7 +14,7 @@ export const profile = {
 	languages: ['C#/.NET', 'Go', 'TypeScript'],
 	experience: `~${new Date().getFullYear() - startYear} years`,
 	interests: ['Event Sourcing', 'Clean Architecture', 'Pizza'],
-	image: '/images/Felix.jpeg',
+	image: '/images/Felix.webp',
 	projects: [
 		{ name: 'Resume in C#', url: 'https://github.com/klowdo/resume' },
 		{ name: 'NixOS Config', url: 'https://github.com/klowdo/nixos-config' },
