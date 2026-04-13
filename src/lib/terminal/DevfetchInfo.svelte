@@ -87,7 +87,7 @@
 	}
 
 	.separator {
-		color: var(--ctp-overlay1);
+		color: var(--ctp-subtext0);
 		margin-bottom: 0.25rem;
 	}
 
