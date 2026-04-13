@@ -5,7 +5,14 @@
 
 <div class="devfetch">
 	<div class="image-container">
-		<img src={profile.image} alt={profile.name} />
+		<img
+			src={profile.image}
+			alt={profile.name}
+			width="200"
+			height="200"
+			fetchpriority="high"
+			decoding="async"
+		/>
 	</div>
 	<DevfetchInfo />
 </div>
