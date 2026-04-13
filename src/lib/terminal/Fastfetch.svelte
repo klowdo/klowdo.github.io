@@ -106,7 +106,7 @@
 	}
 
 	.separator {
-		color: var(--ctp-overlay0);
+		color: var(--ctp-overlay1);
 		margin-bottom: 0.25rem;
 	}
 

@@ -107,7 +107,7 @@
 	}
 
 	.hint {
-		color: var(--ctp-overlay0, #6c7086);
+		color: var(--ctp-overlay1, #7f849c);
 		margin-left: 0.5ch;
 	}
 
