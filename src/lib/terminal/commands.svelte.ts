@@ -78,3 +78,19 @@ export function resolve(input: string): OutputBlock {
 export function commandNames(): string[] {
 	return registry.map((c) => c.name);
 }
+
+export type PaneContext = {
+	history: HistoryEntry[];
+	currentPath: string;
+	busy: boolean;
+};
+
+export function resolveWithContext(input: string): OutputBlock {
+	const parts = input.trim().split(/\s+/);
+	const cmd = parts[0].toLowerCase();
+	const args = parts.slice(1).join(' ');
+
+	const def = registry.find((c) => c.name === cmd);
+	if (!def) return { type: 'text', content: `command not found: ${cmd}`, class: 'error' };
+	return def.run(args);
+}
