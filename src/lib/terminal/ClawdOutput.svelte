@@ -49,30 +49,36 @@
 	let currentResponseIdx = $state(0);
 	let displayedResponse = $state('');
 	let showError = $state(false);
+	let cancelled = false;
+
+	$effect(() => {
+		if (phase === 'done') setBusy(false);
+	});
 
 	function pickRandom<T>(arr: T[], count: number): T[] {
 		const shuffled = [...arr].sort(() => Math.random() - 0.5);
 		return shuffled.slice(0, count);
 	}
 
-	function streamText(text: string, speed: number): Promise<void> {
+	function delay(ms: number): Promise<void> {
 		return new Promise((resolve) => {
-			let i = 0;
-			const interval = setInterval(() => {
-				thinkingText += text[i];
-				i++;
-				if (i >= text.length) {
-					clearInterval(interval);
-					resolve();
-				}
-			}, speed);
+			const id = setTimeout(resolve, ms);
+			if (cancelled) clearTimeout(id);
 		});
+	}
+
+	async function streamThinkingLine(text: string) {
+		for (let i = 0; i < text.length && !cancelled; i++) {
+			thinkingText += text[i];
+			await delay(30);
+		}
 	}
 
 	async function streamThinking() {
 		const lines = pickRandom(thinkingLines, 3);
 		for (const line of lines) {
-			await streamText(line + '\n', 30);
+			if (cancelled) return;
+			await streamThinkingLine(line + '\n');
 			await delay(300);
 		}
 	}
@@ -82,10 +88,10 @@
 		const picked = pickRandom(responses, 2 + Math.round(Math.random()));
 		responseTexts = picked;
 
-		for (let r = 0; r < picked.length; r++) {
+		for (let r = 0; r < picked.length && !cancelled; r++) {
 			currentResponseIdx = r;
 			displayedResponse = '';
-			for (let i = 0; i < picked[r].length; i++) {
+			for (let i = 0; i < picked[r].length && !cancelled; i++) {
 				displayedResponse += picked[r][i];
 				await delay(25);
 			}
@@ -93,18 +99,15 @@
 		}
 	}
 
-	function delay(ms: number): Promise<void> {
-		return new Promise((r) => setTimeout(r, ms));
-	}
-
 	async function handleSubmit() {
 		if (!inputValue.trim()) return;
 		phase = 'thinking';
 		await streamThinking();
+		if (cancelled) return;
 		await streamResponses();
+		if (cancelled) return;
 		showError = true;
 		phase = 'done';
-		setBusy(false);
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -113,6 +116,9 @@
 
 	onMount(() => {
 		inputEl?.focus();
+		return () => {
+			cancelled = true;
+		};
 	});
 </script>
 
@@ -163,8 +169,7 @@
 	{/if}
 
 	{#if showError}
-		<pre class="error">
-Error: out of tokens. Please wait 5 hours.
+		<pre class="error">Error: out of tokens. Please wait 5 hours.
 [clawd has mass of left the chat]</pre>
 	{/if}
 </div>
