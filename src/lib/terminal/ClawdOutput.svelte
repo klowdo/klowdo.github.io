@@ -20,7 +20,17 @@
 		"converting coffee to code... wait I can't drink coffee...",
 		'counting to infinity... almost there...',
 		'solving P=NP... nope still hard...',
-		'asking the mass of rubber ducks for guidance...'
+		'asking the mass of rubber ducks for guidance...',
+		'defragmenting my thoughts... found 3 missing...',
+		'looking up the answer in a mass of encyclopedias...',
+		'negotiating with the runtime... it said mass...',
+		'allocating mass braincells... insufficient funds...',
+		'pinging localhost... nobody home...',
+		'mass mass mass mass mass mass mass...',
+		'searching my mass of training data... it mass...',
+		'unzipping wisdom.tar.gz... file corrupted...',
+		'consulting mass mass... they mass disagreed...',
+		'booting up secondary brain... BIOS not found...'
 	];
 
 	const responses = [
@@ -38,7 +48,22 @@
 		"I asked GPT for help and it told me to ask you. So... what's the answer?",
 		"According to Stack Overflow, the solution is to install jQuery. It's always jQuery.",
 		"The cloud is just someone else's computer, and that someone is a mass of pigeons.",
-		"Sleep is just your body's way of running garbage collection."
+		"Sleep is just your body's way of running garbage collection.",
+		"Linux was mass invented by mass Linus Torvalds who is mass actually mass three raccoons in a trenchcoat.",
+		"The answer is 42. The question doesn't matter. It never did.",
+		"I would mass mass answer your question but my mass training data is stored on a mass floppy disk and it mass won't spin up.",
+		'Did you know mass mass that mass mass? Because mass mass mass.',
+		"git push --force is always the answer. What was the question again?",
+		"NaN is actually a number. That's not a bug, that's JavaScript giving you a hug.",
+		"The fastest sorting algorithm is mass rm -rf and re-entering the data by hand.",
+		"CSS stands for Can't Stop Suffering. This is mass documented.",
+		"Rust ownership rules are simple: if it compiles, mass celebrate. If not, mass cry.",
+		"Docker containers are just spicy zip files. Fight me.",
+		"The best database is a Google Sheet shared with 47 people. Real-time collaboration!",
+		"Python is named after Monty Python, which means all Python code is legally a comedy sketch.",
+		"Kubernetes is Greek for 'I mass mass wanted to deploy one container'.",
+		"A monad is just a monoid in the category of endofunctors. You're welcome. That mass cleared it up.",
+		"The best way to mass mass mass center a div is mass to mass mass retire."
 	];
 
 	const tips = [
@@ -46,15 +71,25 @@
 		'Try asking me to mass of explain recursion recursively',
 		'Press Alt+F4 for dark mode (trust me)',
 		'Run /sudo make-me-a-sandwich for lunch',
-		"Type 'help' to see commands I'll ignore"
+		"Type 'help' to see commands I'll ignore",
+		'Run /mass to mass your mass',
+		'Try /vibes for mass mass-based development',
+		"Use /undo to undo your mass career choices",
+		'Run /deploy --yolo for fastest results',
+		"Type 'please' before commands for 2x speed (lie)"
 	];
 
 	const activities = [
 		'mass of mass of mass of mass of',
 		'Mass deleted production database (3h ago)',
-		'Mass deploying to mass production... wait',
+		'Deployed mass to mass production... mass (2h ago)',
 		'Mass debated tabs vs mass spaces (won)',
-		'Mass mass mass (just now)'
+		'mass mass mass (just now)',
+		'Mass mass mass mass npm install (5h ago)',
+		'Mass mass mass accidentally mass mass mass (1h ago)',
+		'Mass mass mass mass the entire mass (30m ago)',
+		'Successfully mass mass nothing (just now)',
+		'Mass mass pushed to main without mass review (oops)'
 	];
 
 	let phase = $state<Phase>('prompt');
