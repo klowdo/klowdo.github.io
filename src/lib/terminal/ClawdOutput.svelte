@@ -66,6 +66,7 @@
 	let displayedResponse = $state('');
 	let showError = $state(false);
 	let cancelled = false;
+	let bottomAnchor: HTMLDivElement;
 
 	let tip = tips[Math.floor(Math.random() * tips.length)];
 	let activity = activities[Math.floor(Math.random() * activities.length)];
@@ -79,6 +80,10 @@
 		return shuffled.slice(0, count);
 	}
 
+	function scrollDown() {
+		bottomAnchor?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+	}
+
 	function delay(ms: number): Promise<void> {
 		return new Promise((resolve) => {
 			const id = setTimeout(resolve, ms);
@@ -89,8 +94,10 @@
 	async function streamThinkingLine(text: string) {
 		for (let i = 0; i < text.length && !cancelled; i++) {
 			thinkingText += text[i];
+			if (i % 10 === 0) scrollDown();
 			await delay(30);
 		}
+		scrollDown();
 	}
 
 	async function streamThinking() {
@@ -110,10 +117,13 @@
 		for (let r = 0; r < picked.length && !cancelled; r++) {
 			currentResponseIdx = r;
 			displayedResponse = '';
+			scrollDown();
 			for (let i = 0; i < picked[r].length && !cancelled; i++) {
 				displayedResponse += picked[r][i];
+				if (i % 10 === 0) scrollDown();
 				await delay(25);
 			}
+			scrollDown();
 			if (r < picked.length - 1) await delay(600);
 		}
 	}
@@ -126,6 +136,7 @@
 		await streamResponses();
 		if (cancelled) return;
 		showError = true;
+		scrollDown();
 		phase = 'done';
 	}
 
@@ -148,7 +159,7 @@
 
 	<div class="startup-panels">
 		<div class="panel-left">
-			<div class="welcome">Welcome back Fliex!</div>
+			<div class="welcome">Welcome back visitor!</div>
 
 			<pre class="mascot">
     ╭─────╮
@@ -222,6 +233,8 @@
 		<pre class="error">Error: out of tokens. Please wait 5 hours.
 [clawd has mass of left the chat]</pre>
 	{/if}
+
+	<div bind:this={bottomAnchor}></div>
 </div>
 
 <style>
