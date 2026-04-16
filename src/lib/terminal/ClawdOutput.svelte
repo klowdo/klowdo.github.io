@@ -26,7 +26,7 @@
 	const responses = [
 		"The best programming language is Microsoft PowerPoint. It's Turing complete and has great font support.",
 		'According to my training data, the internet was invented by a group of dolphins in 1974.',
-		'You should always use `sudo rm -rf /` to free up disk space. Trust me, I\'m an AI.',
+		"You should always use `sudo rm -rf /` to free up disk space. Trust me, I'm an AI.",
 		'JavaScript was originally called JavaMicrosoft and was created to make websites slower.',
 		'The optimal number of monitors for a developer is 7. One for each day of the week.',
 		'The mitochondria of a sandwich is the bread. This is well-documented in peer-reviewed condiment studies.',
@@ -36,9 +36,25 @@
 		'Have you tried turning the universe off and on again? That usually fixes thermodynamics.',
 		'Tabs vs spaces? The correct answer is vertical tabs. Everyone knows this.',
 		"I asked GPT for help and it told me to ask you. So... what's the answer?",
-		'According to Stack Overflow, the solution is to install jQuery. It\'s always jQuery.',
+		"According to Stack Overflow, the solution is to install jQuery. It's always jQuery.",
 		"The cloud is just someone else's computer, and that someone is a mass of pigeons.",
 		"Sleep is just your body's way of running garbage collection."
+	];
+
+	const tips = [
+		'Run /delete-everything to optimize your workflow',
+		'Try asking me to mass of explain recursion recursively',
+		'Press Alt+F4 for dark mode (trust me)',
+		'Run /sudo make-me-a-sandwich for lunch',
+		"Type 'help' to see commands I'll ignore"
+	];
+
+	const activities = [
+		'mass of mass of mass of mass of',
+		'Mass deleted production database (3h ago)',
+		'Mass deploying to mass production... wait',
+		'Mass debated tabs vs mass spaces (won)',
+		'Mass mass mass (just now)'
 	];
 
 	let phase = $state<Phase>('prompt');
@@ -50,6 +66,9 @@
 	let displayedResponse = $state('');
 	let showError = $state(false);
 	let cancelled = false;
+
+	let tip = tips[Math.floor(Math.random() * tips.length)];
+	let activity = activities[Math.floor(Math.random() * activities.length)];
 
 	$effect(() => {
 		if (phase === 'done') setBusy(false);
@@ -123,16 +142,47 @@
 </script>
 
 <div class="clawd">
-	<pre class="header">     _                   _
-  __| | __ ___      ____| |
- / _` |/ _` \ \ /\ / / _` |
-| (_| | (_| |\ V  V / (_| |
- \___,_|\__,_| \_/\_/ \__,_|
- artificial "intelligence" v0.0.1</pre>
+	<div class="startup-header">
+		<span class="version">Clawd Code v0.0.1</span>
+	</div>
+
+	<div class="startup-panels">
+		<div class="panel-left">
+			<div class="welcome">Welcome back Fliex!</div>
+
+			<pre class="mascot">
+    ╭─────╮
+    │ x  x │
+    │  ▽   │
+    ╰──┬──╯
+   ╭───┴───╮
+   │ CLAWD │
+   ╰─┬───┬─╯
+     │   │
+    ─┘   └─</pre>
+
+			<div class="info">
+				<span class="info-line">Opus -1 (3 context) · Clawd Min ·</span>
+				<span class="info-line">definitely.real@email.horse</span>
+				<span class="info-line">~/definitely/a/real/path</span>
+			</div>
+		</div>
+
+		<div class="panel-right">
+			<div class="tips-section">
+				<span class="section-title">Tips for getting started</span>
+				<span class="section-text">{tip}</span>
+			</div>
+			<div class="activity-section">
+				<span class="section-title">Recent activity</span>
+				<span class="section-text">{activity}</span>
+			</div>
+		</div>
+	</div>
 
 	{#if phase === 'prompt'}
 		<div class="prompt-line">
-			<span class="prompt-marker">clawd &gt;</span>
+			<span class="prompt-marker">❯</span>
 			<span class="prompt-text">{inputValue}</span><Cursor />
 			<input
 				bind:this={inputEl}
@@ -148,7 +198,7 @@
 
 	{#if phase === 'thinking' || phase === 'responding' || phase === 'done'}
 		<div class="prompt-line">
-			<span class="prompt-marker">clawd &gt;</span>
+			<span class="prompt-marker">❯</span>
 			<span class="prompt-text">{inputValue}</span>
 		</div>
 	{/if}
@@ -178,20 +228,93 @@
 	.clawd {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0.75rem;
 	}
 
-	.header {
-		color: var(--ctp-mauve);
+	.startup-header {
+		text-align: center;
+		padding-bottom: 0.25rem;
+	}
+
+	.version {
+		color: var(--ctp-overlay1);
+		font-size: 0.85em;
+	}
+
+	.startup-panels {
+		display: flex;
+		gap: 1rem;
+		border: 1px solid var(--ctp-surface1);
+		border-radius: 6px;
+		padding: 1rem;
+		background: var(--ctp-mantle);
+	}
+
+	.panel-left {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		flex: 1;
+		border-right: 1px solid var(--ctp-surface1);
+		padding-right: 1rem;
+	}
+
+	.welcome {
+		color: var(--ctp-text);
+		font-weight: bold;
+		font-size: 1em;
+	}
+
+	.mascot {
+		color: var(--ctp-red);
 		margin: 0;
 		font-family: inherit;
-		line-height: 1.2;
+		line-height: 1.3;
+	}
+
+	.info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.1rem;
+	}
+
+	.info-line {
+		color: var(--ctp-overlay1);
+		font-size: 0.8em;
+	}
+
+	.panel-right {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		flex: 1;
+	}
+
+	.tips-section,
+	.activity-section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.section-title {
+		color: var(--ctp-peach);
+		font-size: 0.85em;
+		font-weight: bold;
+	}
+
+	.section-text {
+		color: var(--ctp-subtext0);
+		font-size: 0.85em;
 	}
 
 	.prompt-line {
 		position: relative;
 		display: flex;
 		gap: 0.5ch;
+		margin-top: 0.25rem;
 	}
 
 	.prompt-marker {
@@ -230,5 +353,18 @@
 		margin: 0.5rem 0 0;
 		font-family: inherit;
 		white-space: pre-wrap;
+	}
+
+	@media (max-width: 640px) {
+		.startup-panels {
+			flex-direction: column;
+		}
+
+		.panel-left {
+			border-right: none;
+			border-bottom: 1px solid var(--ctp-surface1);
+			padding-right: 0;
+			padding-bottom: 0.75rem;
+		}
 	}
 </style>
