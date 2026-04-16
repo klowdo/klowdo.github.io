@@ -79,7 +79,7 @@
 
 	async function streamResponses() {
 		phase = 'responding';
-		const picked = pickRandom(responses, 3);
+		const picked = pickRandom(responses, 2 + Math.round(Math.random()));
 		responseTexts = picked;
 
 		for (let r = 0; r < picked.length; r++) {
