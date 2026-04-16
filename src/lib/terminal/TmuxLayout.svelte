@@ -2,6 +2,7 @@
   import type { LayoutNode } from './tmux.svelte';
   import { getSession } from './tmux.svelte';
   import TmuxPane from './TmuxPane.svelte';
+  import TmuxLayout from './TmuxLayout.svelte';
 
   let { node }: { node: LayoutNode } = $props();
 
@@ -12,8 +13,8 @@
   <TmuxPane pane={node} active={node.id === session?.activePaneId} />
 {:else}
   <div class="split" class:vertical={node.direction === 'vertical'} class:horizontal={node.direction === 'horizontal'}>
-    <svelte:self node={node.children[0]} />
-    <svelte:self node={node.children[1]} />
+    <TmuxLayout node={node.children[0]} />
+    <TmuxLayout node={node.children[1]} />
   </div>
 {/if}
 
