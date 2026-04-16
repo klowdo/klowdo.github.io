@@ -9,12 +9,14 @@
 		children,
 		path = '~',
 		hidden = false,
+		bodyEl = $bindable(),
 		onclose,
 		onrestore
 	}: {
 		children: Snippet;
 		path?: string;
 		hidden?: boolean;
+		bodyEl?: HTMLDivElement;
 		onclose?: () => void;
 		onrestore?: () => void;
 	} = $props();
@@ -215,7 +217,7 @@
 		<span class="title">visitor@flixen.se:{path}</span>
 		<div class="spacer"></div>
 	</div>
-	<div class="body">
+	<div class="body" bind:this={bodyEl}>
 		{@render children()}
 	</div>
 
@@ -238,9 +240,12 @@
 		border-radius: 12px;
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 		max-width: 900px;
+		max-height: 80vh;
 		width: 100%;
 		overflow: hidden;
 		position: relative;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.window.positioned {
@@ -350,6 +355,8 @@
 		padding: 1.25rem;
 		font-size: 0.9rem;
 		line-height: 1.6;
+		flex: 1;
+		overflow-y: auto;
 	}
 
 	.resize-handle {

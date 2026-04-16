@@ -52,6 +52,8 @@
 		pushEntry(trimmed, output);
 		syncPath();
 		await scrollToBottom();
+		await tick();
+		inputRef?.focus();
 	}
 
 	async function scrollToBottom() {
@@ -88,8 +90,8 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
-<main bind:this={scrollEl} class="scroll-container" onclick={handleClick}>
-	<Terminal path={currentPath} hidden={terminalHidden} onclose={() => terminalHidden = true} onrestore={() => terminalHidden = false}>
+<main onclick={handleClick}>
+	<Terminal path={currentPath} hidden={terminalHidden} bind:bodyEl={scrollEl} onclose={() => terminalHidden = true} onrestore={() => terminalHidden = false}>
 		{#if typing}
 			<TerminalLine>
 				<TypingAnimation text="devfetch" ondone={handleTypingDone} />
@@ -114,19 +116,6 @@
 {/if}
 
 <style>
-	.scroll-container {
-		max-height: 80vh;
-		overflow-y: auto;
-	}
-
-	@media (max-width: 640px) {
-		.scroll-container {
-			max-height: none;
-			width: 100%;
-			height: 100dvh;
-		}
-	}
-
 	.input-line {
 		margin-top: 1rem;
 	}
