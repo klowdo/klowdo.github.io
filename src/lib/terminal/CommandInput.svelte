@@ -7,8 +7,9 @@
 	let {
 		onsubmit,
 		path = '~',
-		commands = [] as string[]
-	}: { onsubmit: (value: string) => void; path?: string; commands?: string[] } = $props();
+		commands = [] as string[],
+		disabled = false
+	}: { onsubmit: (value: string) => void; path?: string; commands?: string[]; disabled?: boolean } = $props();
 
 	let value = $state('');
 	let inputEl: HTMLInputElement;
@@ -17,14 +18,15 @@
 	let savedInput = '';
 
 	onMount(() => {
-		inputEl.focus();
+		if (!disabled) inputEl.focus();
 	});
 
 	export function focus() {
-		inputEl?.focus();
+		if (!disabled) inputEl?.focus();
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
+		if (disabled) return;
 		if (e.key === 'Enter') {
 			if (value.trim()) commandHistory.push(value.trim());
 			onsubmit(value);
