@@ -19,6 +19,9 @@
 		setBusy
 	} from '$lib/terminal/commands.svelte';
 	import { cd } from '$lib/terminal/filesystem';
+	import { getSession, findAdjacentPane, focusPane } from '$lib/terminal/tmux.svelte';
+	import TmuxLayout from '$lib/terminal/TmuxLayout.svelte';
+	import TmuxStatusBar from '$lib/terminal/TmuxStatusBar.svelte';
 
 	let typing = $state(true);
 	let inputRef = $state<CommandInput>();
@@ -28,6 +31,7 @@
 	let history = $derived(getHistory());
 	let currentPath = $derived(getCurrentPath());
 	let busy = $derived(getBusy());
+	let tmuxSession = $derived(getSession());
 
 	function handleTypingDone() {
 		typing = false;
@@ -73,6 +77,24 @@
 	function handleClick() {
 		inputRef?.focus();
 	}
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (!tmuxSession || !e.altKey) return;
+
+		const directionMap: Record<string, 'left' | 'right' | 'up' | 'down'> = {
+			ArrowLeft: 'left',
+			ArrowRight: 'right',
+			ArrowUp: 'up',
+			ArrowDown: 'down'
+		};
+
+		const direction = directionMap[e.key];
+		if (!direction) return;
+
+		e.preventDefault();
+		const targetId = findAdjacentPane(direction);
+		if (targetId) focusPane(targetId);
+	}
 </script>
 
 <header class="sr-only">
@@ -99,23 +121,30 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
-<main onclick={handleClick}>
-	<Terminal path={currentPath} hidden={terminalHidden} bind:bodyEl={scrollEl} onclose={handleTerminalClose} onrestore={() => terminalHidden = false}>
-		{#if typing}
-			<TerminalLine>
-				<TypingAnimation text="devfetch" ondone={handleTypingDone} />
-			</TerminalLine>
-		{/if}
-
-		{#each history as entry}
-			<TerminalLine path={entry.path}><span>{entry.command}</span></TerminalLine>
-			<OutputBlockView block={entry.output} />
-		{/each}
-
-		{#if !typing && !busy}
-			<div class="input-line">
-				<CommandInput bind:this={inputRef} onsubmit={handleCommand} path={currentPath} commands={commandNames()} />
+<main onclick={handleClick} onkeydown={handleKeydown}>
+	<Terminal path={tmuxSession ? '~' : currentPath} hidden={terminalHidden} bind:bodyEl={scrollEl} onclose={handleTerminalClose} onrestore={() => terminalHidden = false}>
+		{#if tmuxSession}
+			<div class="tmux-container">
+				<TmuxLayout node={tmuxSession.layout} />
+				<TmuxStatusBar />
 			</div>
+		{:else}
+			{#if typing}
+				<TerminalLine>
+					<TypingAnimation text="devfetch" ondone={handleTypingDone} />
+				</TerminalLine>
+			{/if}
+
+			{#each history as entry}
+				<TerminalLine path={entry.path}><span>{entry.command}</span></TerminalLine>
+				<OutputBlockView block={entry.output} />
+			{/each}
+
+			{#if !typing && !busy}
+				<div class="input-line">
+					<CommandInput bind:this={inputRef} onsubmit={handleCommand} path={currentPath} commands={commandNames()} />
+				</div>
+			{/if}
 		{/if}
 	</Terminal>
 </main>
@@ -157,6 +186,18 @@
 		to {
 			opacity: 1;
 			transform: translateY(0);
+		}
+	}
+
+	.tmux-container {
+		display: flex;
+		flex-direction: column;
+		height: 60vh;
+	}
+
+	@media (max-width: 640px) {
+		.tmux-container {
+			height: calc(100dvh - 3rem);
 		}
 	}
 </style>
