@@ -22,6 +22,7 @@
 	let typing = $state(true);
 	let inputRef = $state<CommandInput>();
 	let scrollEl: HTMLDivElement;
+	let terminalHidden = $state(false);
 
 	let history = $derived(getHistory());
 	let currentPath = $derived(getCurrentPath());
@@ -88,7 +89,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <main bind:this={scrollEl} class="scroll-container" onclick={handleClick}>
-	<Terminal path={currentPath}>
+	<Terminal path={currentPath} hidden={terminalHidden} onclose={() => terminalHidden = true} onrestore={() => terminalHidden = false}>
 		{#if typing}
 			<TerminalLine>
 				<TypingAnimation text="devfetch" ondone={handleTypingDone} />
@@ -108,6 +109,10 @@
 	</Terminal>
 </main>
 
+{#if terminalHidden}
+	<button class="reopen-btn" onclick={() => terminalHidden = false}>Open Terminal</button>
+{/if}
+
 <style>
 	.scroll-container {
 		max-height: 80vh;
@@ -124,5 +129,36 @@
 
 	.input-line {
 		margin-top: 1rem;
+	}
+
+	.reopen-btn {
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		background: var(--ctp-surface0);
+		color: var(--ctp-green);
+		border: 1px solid var(--ctp-surface1);
+		border-radius: 8px;
+		padding: 0.75rem 1.25rem;
+		font-family: inherit;
+		font-size: 0.9rem;
+		cursor: pointer;
+		animation: fade-in 0.3s ease;
+		z-index: 100;
+	}
+
+	.reopen-btn:hover {
+		background: var(--ctp-surface1);
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 </style>
