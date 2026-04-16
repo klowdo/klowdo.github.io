@@ -8,6 +8,7 @@ import TreeOutput from './TreeOutput.svelte';
 import CowsayOutput from './CowsayOutput.svelte';
 import ContactOutput from './ContactOutput.svelte';
 import JavaOutput from './JavaOutput.svelte';
+import ClawdOutput from './ClawdOutput.svelte';
 
 register('devfetch', 'Display developer profile info', () => ({
 	type: 'component',
@@ -221,3 +222,9 @@ register('tmux', 'Terminal multiplexer', (args) => {
 
 	return { type: 'text', content: `tmux: unknown command "${sub}"`, class: 'error' };
 }, tmuxSubcommands);
+
+register('clawd', 'Ask the AI (results may vary)', () => ({
+	type: 'component',
+	component: ClawdOutput,
+	blocking: true
+}));
