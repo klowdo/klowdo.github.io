@@ -1,4 +1,4 @@
-import { register, getRegistry, getHistory } from './commands.svelte';
+import { register, getRegistry, getHistory, getCurrentPath, clearHistory } from './commands.svelte';
 import { ls, cat, cd, getCurrentDir, getTree } from './filesystem';
 import Devfetch from './Devfetch.svelte';
 import Fastfetch from './Fastfetch.svelte';
@@ -144,3 +144,57 @@ register('java', 'Run Java application', () => ({
 	component: JavaOutput,
 	blocking: true
 }));
+
+import {
+	getSession,
+	createSession,
+	splitPane,
+	killPane,
+	killSession,
+	listPanes
+} from './tmux.svelte';
+
+register('tmux', 'Terminal multiplexer', (args) => {
+	const parts = args.trim().split(/\s+/).filter(Boolean);
+	const sub = parts[0] ?? 'new';
+
+	if (sub === 'new' || !args.trim()) {
+		if (getSession()) return { type: 'text', content: 'tmux: already in a session' };
+		createSession(getCurrentPath(), getHistory());
+		clearHistory();
+		return { type: 'empty' };
+	}
+
+	if (sub === 'split-window') {
+		if (!getSession()) return { type: 'text', content: 'tmux: no session', class: 'error' };
+		const horizontal = parts.includes('-h');
+		const direction = horizontal ? 'vertical' : 'horizontal';
+		const err = splitPane(getSession()!.activePaneId, direction);
+		if (err) return { type: 'text', content: `tmux: ${err}`, class: 'error' };
+		return { type: 'empty' };
+	}
+
+	if (sub === 'kill-pane') {
+		if (!getSession()) return { type: 'text', content: 'tmux: no session', class: 'error' };
+		killPane(getSession()!.activePaneId);
+		return { type: 'empty' };
+	}
+
+	if (sub === 'kill-session') {
+		if (!getSession()) return { type: 'text', content: 'tmux: no session', class: 'error' };
+		killSession();
+		return { type: 'empty' };
+	}
+
+	if (sub === 'list-panes') {
+		if (!getSession()) return { type: 'text', content: 'tmux: no session', class: 'error' };
+		const panes = listPanes();
+		const session = getSession()!;
+		const lines = panes.map(
+			(p, i) => `${i}: [pane ${p.id}] ${p.currentPath}${p.id === session.activePaneId ? ' (active)' : ''}`
+		);
+		return { type: 'text', content: lines.join('\n') };
+	}
+
+	return { type: 'text', content: `tmux: unknown command "${sub}"`, class: 'error' };
+});
