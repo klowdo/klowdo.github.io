@@ -18,6 +18,7 @@
 		getBusy,
 		setBusy
 	} from '$lib/terminal/commands.svelte';
+	import { cd } from '$lib/terminal/filesystem';
 
 	let typing = $state(true);
 	let inputRef = $state<CommandInput>();
@@ -61,6 +62,14 @@
 		scrollEl?.scrollTo({ top: scrollEl.scrollHeight, behavior: 'smooth' });
 	}
 
+	function handleTerminalClose() {
+		terminalHidden = true;
+		clearHistory();
+		cd('~');
+		syncPath();
+		typing = true;
+	}
+
 	function handleClick() {
 		inputRef?.focus();
 	}
@@ -91,7 +100,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <main onclick={handleClick}>
-	<Terminal path={currentPath} hidden={terminalHidden} bind:bodyEl={scrollEl} onclose={() => terminalHidden = true} onrestore={() => terminalHidden = false}>
+	<Terminal path={currentPath} hidden={terminalHidden} bind:bodyEl={scrollEl} onclose={handleTerminalClose} onrestore={() => terminalHidden = false}>
 		{#if typing}
 			<TerminalLine>
 				<TypingAnimation text="devfetch" ondone={handleTypingDone} />
