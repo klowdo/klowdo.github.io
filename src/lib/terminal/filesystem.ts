@@ -208,6 +208,10 @@ export function getCurrentDir(): string {
 	return cwd;
 }
 
+export function setCwd(path: string): void {
+	cwd = path;
+}
+
 export type TreeNode = { name: string; isDir: boolean; children?: TreeNode[] };
 
 export function getTree(path?: string): TreeNode[] | string {
