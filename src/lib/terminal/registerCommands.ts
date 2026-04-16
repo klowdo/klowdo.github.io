@@ -28,7 +28,22 @@ register('help', 'Show available commands', () => ({
 }));
 
 register('ls', 'List directory contents', (args) => {
-	const result = ls(args || undefined);
+	const tokens = args ? args.trim().split(/\s+/) : [];
+	const flags = new Set<string>();
+	let path: string | undefined;
+
+	for (const token of tokens) {
+		if (token.startsWith('-') && token.length > 1) {
+			for (const ch of token.slice(1)) {
+				if (ch !== 'a') return { type: 'text', content: `ls: invalid option -- '${ch}'`, class: 'error' };
+				flags.add(ch);
+			}
+		} else {
+			path = token;
+		}
+	}
+
+	const result = ls(path, { all: flags.has('a') });
 	if (typeof result === 'string') return { type: 'text', content: result, class: 'error' };
 	return { type: 'component', component: LsOutput, props: { entries: result } };
 });
