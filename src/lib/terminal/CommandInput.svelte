@@ -3,6 +3,7 @@
 	import TerminalLine from './TerminalLine.svelte';
 	import Cursor from './Cursor.svelte';
 	import { completePath } from './filesystem';
+	import { commandCompletions } from './commands.svelte';
 
 	let {
 		onsubmit,
@@ -78,6 +79,14 @@
 
 		const cmd = parts[0];
 		const arg = parts.slice(1).join(' ');
+
+		const subs = commandCompletions(cmd);
+		if (subs) {
+			const subMatches = subs.filter((s) => s.startsWith(arg));
+			if (subMatches.length === 1) return cmd + ' ' + subMatches[0];
+			return input;
+		}
+
 		const matches = completePath(arg);
 		if (matches.length === 1) return cmd + ' ' + matches[0];
 		return input;

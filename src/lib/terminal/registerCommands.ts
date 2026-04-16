@@ -159,9 +159,27 @@ import {
 	listPanes
 } from './tmux.svelte';
 
+const tmuxSubcommands = ['new', 'split-window', 'kill-pane', 'kill-session', 'list-panes'];
+
 register('tmux', 'Terminal multiplexer', (args) => {
 	const parts = args.trim().split(/\s+/).filter(Boolean);
 	const sub = parts[0] ?? 'new';
+
+	if (sub === '--help' || sub === '-h') {
+		return {
+			type: 'text',
+			content: [
+				'usage: tmux <command>',
+				'',
+				'commands:',
+				'  new              start a new session',
+				'  split-window     split the active pane (-h for vertical, default horizontal)',
+				'  kill-pane        close the active pane',
+				'  kill-session     destroy the current session',
+				'  list-panes       show all panes'
+			].join('\n')
+		};
+	}
 
 	if (sub === 'new' || !args.trim()) {
 		if (getSession()) return { type: 'text', content: 'tmux: already in a session' };
@@ -202,4 +220,4 @@ register('tmux', 'Terminal multiplexer', (args) => {
 	}
 
 	return { type: 'text', content: `tmux: unknown command "${sub}"`, class: 'error' };
-});
+}, tmuxSubcommands);
