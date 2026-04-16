@@ -139,29 +139,29 @@ function getNode(parts: string[]): FsNode | null {
 
 export type LsEntry = { name: string; isDir: boolean; isHidden: boolean };
 
-export function ls(path?: string): LsEntry[] | string {
+export function ls(path?: string, options?: { all?: boolean }): LsEntry[] | string {
 	const parts = normalizePath(path ?? cwd);
 	const node = getNode(parts);
 
+	let children: Record<string, FsNode>;
+
 	if (!node && parts.length === 0) {
-		return Object.entries(filesystem.children)
-			.map(([name, child]) => ({
-				name,
-				isDir: child.type === 'dir',
-				isHidden: name.startsWith('.')
-			}))
-			.sort(sortEntries);
+		children = filesystem.children;
+	} else if (!node) {
+		return `ls: cannot access '${path}': No such file or directory`;
+	} else if (node.type === 'file') {
+		return `ls: '${path}' is a file`;
+	} else {
+		children = node.children;
 	}
 
-	if (!node) return `ls: cannot access '${path}': No such file or directory`;
-	if (node.type === 'file') return `ls: '${path}' is a file`;
-
-	return Object.entries(node.children)
+	return Object.entries(children)
 		.map(([name, child]) => ({
 			name,
 			isDir: child.type === 'dir',
 			isHidden: name.startsWith('.')
 		}))
+		.filter((entry) => options?.all || !entry.isHidden)
 		.sort(sortEntries);
 }
 
