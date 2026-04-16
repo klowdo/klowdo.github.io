@@ -145,6 +145,11 @@ register('java', 'Run Java application', () => ({
 	blocking: true
 }));
 
+register('exit', 'Exit the terminal', () => {
+	if (getSession()) return { type: 'empty' };
+	return { type: 'text', content: 'Where would you go?' };
+});
+
 import {
 	getSession,
 	createSession,
