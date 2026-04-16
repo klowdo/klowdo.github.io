@@ -17,6 +17,7 @@ export type CommandDef = {
 	name: string;
 	description: string;
 	run: (args: string) => OutputBlock;
+	completions?: string[];
 };
 
 const registry: CommandDef[] = [];
@@ -57,8 +58,13 @@ export function setHistory(h: HistoryEntry[]) {
 	history = h;
 }
 
-export function register(name: string, description: string, run: (args: string) => OutputBlock) {
-	registry.push({ name, description, run });
+export function register(
+	name: string,
+	description: string,
+	run: (args: string) => OutputBlock,
+	completions?: string[]
+) {
+	registry.push({ name, description, run, completions });
 }
 
 export function getRegistry(): CommandDef[] {
@@ -77,6 +83,10 @@ export function resolve(input: string): OutputBlock {
 
 export function commandNames(): string[] {
 	return registry.map((c) => c.name);
+}
+
+export function commandCompletions(name: string): string[] | undefined {
+	return registry.find((c) => c.name === name)?.completions;
 }
 
 export type PaneContext = {
