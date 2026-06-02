@@ -1,0 +1,35 @@
+name: Update resume data
+
+on:
+  repository_dispatch:
+    types: [data-updated]
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: true
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Update submodule to latest
+        run: git submodule update --remote resume
+
+      - name: Open auto-merging PR
+        uses: peter-evans/create-pull-request@v7
+        id: cpr
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          commit-message: 'chore: bump resume data'
+          branch: chore/bump-resume-data
+          delete-branch: true
+          title: 'chore: bump resume data'
+          body: Automated submodule bump triggered by a change in klowdo/Resume.
+
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
