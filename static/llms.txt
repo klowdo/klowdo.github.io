@@ -19,5 +19,5 @@ quickly and ships clean, intentional code.
 
 ## Contact
 
-- Email: klowdo.fs@gmail.com
+- Email: felix@flixen.se, klowdo.fs@gmail.com
 - GitHub: https://github.com/klowdo
