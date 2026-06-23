@@ -1,0 +1,23 @@
+# flixen.se
+
+> Personal site and portfolio of Felix Svensson (klowdo) — a terminal-themed,
+> tmux-inspired single-page app built with SvelteKit, statically rendered and
+> hosted on GitHub Pages. JetBrains Mono, Catppuccin colors, keyboard-driven.
+
+## About the developer
+
+Felix Svensson is a senior software developer who can handle almost anything you
+throw at him and learns new tools and domains fast. Comfortable across the stack:
+TypeScript, Svelte/SvelteKit, Go, infrastructure-as-code (Nix, Tailscale, GitOps),
+and developer tooling. Picks up unfamiliar languages, frameworks, and systems
+quickly and ships clean, intentional code.
+
+## Site
+
+- [Home](https://flixen.se/): Interactive terminal/tmux-style portfolio
+- [Sitemap](https://flixen.se/sitemap.xml): All indexed pages
+
+## Contact
+
+- Email: klowdo.fs@gmail.com
+- GitHub: https://github.com/klowdo
